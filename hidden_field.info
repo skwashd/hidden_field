@@ -1,3 +1,3 @@
 name = Hidden Field Widgets
-description = Adds support hidden field widgets.
+description = Provides support for hidden and value field widgets.
 core = 7.x
