@@ -13,9 +13,11 @@ function hidden_field_field_widget_info() {
   return array(
     'hidden_hidden' => array(
       'label' => t('Hidden field'),
+      'field types' => array(),
     ),
     'hidden_value' => array(
       'label' => t('Server side only'),
+      'field types' => array(),
     ),
   );
 }
@@ -34,6 +36,7 @@ function hidden_field_field_widget_form(&$form, &$form_state, $field, $instance,
     $type = 'value';
     $key = '#value';
   }
+
   foreach ($field['columns'] as $column => $field_column) {
     // Try to make sure the #value is not NULL so the user can't tamper a #type
     // value.
@@ -41,8 +44,8 @@ function hidden_field_field_widget_form(&$form, &$form_state, $field, $instance,
     if (isset($items[$delta]['value'])) {
       $value = $items[$delta]['value'];
     }
-    elseif (isset($items[$delta][$field['field_name']])) {
-      $value = $items[$delta][$field['field_name']];
+    elseif (isset($items[$delta][$column])) {
+      $value = $items[$delta][$column];
     }
     elseif (isset($field_column['default'])) {
       $value = $field_column['default'];
@@ -53,7 +56,7 @@ function hidden_field_field_widget_form(&$form, &$form_state, $field, $instance,
 
     $element[$column] = $base + array(
       '#type' => $type,
-      '#value' => $value,
+      $key => $value,
     );
   }
 
